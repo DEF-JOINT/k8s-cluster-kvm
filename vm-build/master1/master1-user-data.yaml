@@ -1,0 +1,16 @@
+#cloud-config
+hostname: master1
+manage_etc_hosts: true
+users:
+  - name: ansible
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - YOUR_Public_ssh_key
+    shell: /bin/bash
+package_update: true
+packages:
+  - qemu-guest-agent
+  - open-iscsi
+  - nfs-common
+runcmd:
+  - systemctl enable --now qemu-guest-agent
