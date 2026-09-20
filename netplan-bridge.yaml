@@ -1,0 +1,20 @@
+#bridge without NAT for L2 (metalLB)
+#sudo netplan apply
+
+network:
+  version: 2
+  ethernets:
+    enp3s0:
+      dhcp4: no
+  bridges:
+    br0:
+      interfaces: [enp3s0]
+      addresses: [192.168.1.10/24]
+      routes:
+        - to: default
+          via: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+      parameters:
+        stp: false
+        forward-delay: 0
