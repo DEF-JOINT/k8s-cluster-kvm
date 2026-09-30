@@ -5,16 +5,22 @@ network:
   version: 2
   ethernets:
     enp3s0:
-      dhcp4: no
+      dhcp4: false
+      dhcp6: false
+      match:
+        macaddress: 30:5a:3a:00:ac:a8
+      set-name: enp3s0
   bridges:
     br0:
       interfaces: [enp3s0]
-      addresses: [192.168.1.10/24]
+      dhcp4: false
+      addresses: [192.168.0.190/24]
       routes:
         - to: default
-          via: 192.168.1.1
+          via: 192.168.0.1
       nameservers:
-        addresses: [8.8.8.8, 1.1.1.1]
+        addresses: [192.168.0.15, 8.8.8.8, 1.1.1.1]
       parameters:
         stp: false
         forward-delay: 0
+  wifis: {}
